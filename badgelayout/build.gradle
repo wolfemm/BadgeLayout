@@ -1,5 +1,22 @@
 apply plugin: 'com.android.library'
 
+ext {
+    currentVersionCode = 1
+    currentVersionName = '0.0.1'
+
+    groupId = 'au.com.dardle'
+    artifactId = 'badgelayout'
+
+    packageRepo = 'maven'
+    packageName = 'BadgeLayout'
+    packageDescription = 'A layout to display a list of badges, tags, or labels'
+    packageWebsite = 'https://github.com/luxiliu/BadgeLayout'
+    packageIssueTracker = 'https://github.com/luxiliu/BadgeLayout/issues'
+    packageVCS = 'https://github.com/luxiliu/BadgeLayout.git'
+    packageLicenses = ["Apache-2.0"]
+}
+
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
@@ -7,8 +24,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode currentVersionCode
+        versionName currentVersionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -28,4 +45,82 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.0.1'
     testCompile 'junit:junit:4.12'
+}
+
+
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = groupId
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                groupId groupId
+                artifactId artifactId
+            }
+        }
+    }
+}
+
+
+apply plugin: 'com.jfrog.bintray'
+
+version = currentVersionName
+
+if (project.hasProperty("android")) { // Android libraries
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+} else { // Java libraries
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+// Bintray
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = packageRepo
+        name = packageName
+        desc = packageDescription
+        websiteUrl = packageWebsite
+        issueTrackerUrl = packageIssueTracker
+        vcsUrl = packageVCS
+        licenses = packageLicenses
+        publish = true
+        publicDownloadNumbers = true
+        version {
+            gpg {
+                sign = true
+                passphrase = properties.getProperty("bintray.gpg.password")
+            }
+        }
+    }
 }
