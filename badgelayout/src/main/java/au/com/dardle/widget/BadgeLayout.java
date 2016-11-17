@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pools;
+import android.support.v7.widget.TintTypedArray;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -37,6 +38,8 @@ public class BadgeLayout extends FrameLayout {
         }
     };
 
+    private int mItemSpacing;
+
     public interface OnBadgeClickedListener {
         void onBadgeClicked(Badge badge);
     }
@@ -60,6 +63,10 @@ public class BadgeLayout extends FrameLayout {
         mContentContainer.setOrientation(LinearLayout.HORIZONTAL);
         super.addView(mContentContainer, 0, new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams
                 .WRAP_CONTENT));
+
+        final TintTypedArray tintTypedArray = TintTypedArray.obtainStyledAttributes(context, attrs, R.styleable
+                .BadgeLayout);
+        mItemSpacing = tintTypedArray.getDimensionPixelSize(R.styleable.BadgeLayout_itemSpacing, 8);
     }
 
     @Override
@@ -107,6 +114,18 @@ public class BadgeLayout extends FrameLayout {
         // Add badge's view as a child view
         addBadgeView(badge);
         configureBadge(badge);
+    }
+
+    public void setItemSpacing(int spacing) {
+        mItemSpacing = spacing;
+        for (int i = 1; i < mBadges.size(); i++) {
+            Badge badge = mBadges.get(i);
+            View view = badge.mView;
+            if (view != null) {
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
+                layoutParams.leftMargin = mItemSpacing;
+            }
+        }
     }
 
     public void addOnBadgeClickedListener(@NonNull OnBadgeClickedListener onBadgeClickedListener) {
@@ -172,7 +191,7 @@ public class BadgeLayout extends FrameLayout {
             // Add view
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             if (mContentContainer.getChildCount() > 0) {
-                layoutParams.leftMargin = dpToPx(8);
+                layoutParams.leftMargin = mItemSpacing;
             }
 
             badgeView.setLayoutParams(layoutParams);
@@ -186,10 +205,6 @@ public class BadgeLayout extends FrameLayout {
         if (badge.mView != null) {
             badge.mView.setOnClickListener(mClickListener);
         }
-    }
-
-    private int dpToPx(int dps) {
-        return Math.round(getResources().getDisplayMetrics().density * dps);
     }
 
 

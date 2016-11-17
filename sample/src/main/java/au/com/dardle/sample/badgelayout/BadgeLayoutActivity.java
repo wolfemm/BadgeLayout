@@ -75,6 +75,9 @@ public class BadgeLayoutActivity extends AppCompatActivity {
                         .newBadge()
                         .setText("Business")
                         .setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_badge_business, getContext().getTheme())));
+
+
+                badgeLayout.setItemSpacing((int) (getResources().getDisplayMetrics().density * 24));
             }
         }
     }
