@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import au.com.dardle.widget.BadgeLayout;
 
@@ -17,7 +18,6 @@ public class BadgeLayoutActivity extends AppCompatActivity {
     private static final String LOG_TAG = BadgeLayoutActivity.class.getSimpleName();
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -43,15 +43,38 @@ public class BadgeLayoutActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public static class BadgeLayoutFromXMLFragment extends Fragment {
+    public static class BadgeLayoutFromXMLFragment extends Fragment implements BadgeLayout.OnBadgeClickedListener {
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             return inflater.inflate(R.layout.fragment_badge_layout_from_xml, container, false);
         }
+
+        @Override
+        public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+
+            BadgeLayout badgeLayout = (BadgeLayout) getActivity().findViewById(R.id.badge_layout);
+
+            badgeLayout.addOnBadgeClickedListener(this);
+        }
+
+        @Override
+        public void onStop() {
+            super.onStop();
+
+            BadgeLayout badgeLayout = (BadgeLayout) getActivity().findViewById(R.id.badge_layout);
+            badgeLayout.removeOnBadgeClickedListener(this);
+        }
+
+        @Override
+        public void onBadgeClicked(BadgeLayout.Badge badge) {
+            Toast.makeText(getActivity(), badge.getText() != null ? badge.getText() : "", Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 
-    public static class BadgeLayoutFromCodeFragment extends Fragment {
+    public static class BadgeLayoutFromCodeFragment extends Fragment implements BadgeLayout.OnBadgeClickedListener {
 
         @Nullable
         @Override
@@ -63,22 +86,37 @@ public class BadgeLayoutActivity extends AppCompatActivity {
         public void onActivityCreated(@Nullable Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
 
-            if (savedInstanceState == null) {
-                BadgeLayout badgeLayout = (BadgeLayout) getActivity().findViewById(R.id.badge_layout);
+            BadgeLayout badgeLayout = (BadgeLayout) getActivity().findViewById(R.id.badge_layout);
 
-                badgeLayout.addBadge(badgeLayout
-                        .newBadge()
-                        .setText("Personal")
-                        .setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_badge_personal, getContext().getTheme())));
+            // Add badges
+            badgeLayout.addBadge(badgeLayout
+                    .newBadge()
+                    .setText("Personal")
+                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_badge_personal, getContext().getTheme())));
 
-                badgeLayout.addBadge(badgeLayout
-                        .newBadge()
-                        .setText("Business")
-                        .setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_badge_business, getContext().getTheme())));
+            badgeLayout.addBadge(badgeLayout
+                    .newBadge()
+                    .setText("Business")
+                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_badge_business, getContext().getTheme())));
 
+            // Set item spacing
+            badgeLayout.setItemSpacing((int) (getResources().getDisplayMetrics().density * 24));
 
-                badgeLayout.setItemSpacing((int) (getResources().getDisplayMetrics().density * 24));
-            }
+            badgeLayout.addOnBadgeClickedListener(this);
+        }
+
+        @Override
+        public void onStop() {
+            super.onStop();
+
+            BadgeLayout badgeLayout = (BadgeLayout) getActivity().findViewById(R.id.badge_layout);
+            badgeLayout.removeOnBadgeClickedListener(this);
+        }
+
+        @Override
+        public void onBadgeClicked(BadgeLayout.Badge badge) {
+            Toast.makeText(getActivity(), badge.getText() != null ? badge.getText() : "", Toast.LENGTH_SHORT)
+                    .show();
         }
     }
 }

@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <au.com.dardle.widget.BadgeLayout
+        android:id="@+id/badge_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:itemSpacing="24dp">

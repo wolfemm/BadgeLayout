@@ -116,6 +116,14 @@ public class BadgeLayout extends FrameLayout {
         configureBadge(badge);
     }
 
+    public void removeAllBadges() {
+        // Remove all badge views
+        mContentContainer.removeAllViews();
+
+        // Remove all badges
+        mBadges.clear();
+    }
+
     public void setItemSpacing(int spacing) {
         mItemSpacing = spacing;
         for (int i = 1; i < mBadges.size(); i++) {
