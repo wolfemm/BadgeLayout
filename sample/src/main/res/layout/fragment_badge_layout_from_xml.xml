@@ -9,7 +9,7 @@
         android:id="@+id/badge_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemSpacing="24dp">
+        app:spacing="24dp">
 
         <au.com.dardle.widget.BadgeItem
             android:layout_width="wrap_content"

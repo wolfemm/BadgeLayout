@@ -100,7 +100,7 @@ public class BadgeLayoutActivity extends AppCompatActivity {
                     .setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_badge_business, getContext().getTheme())));
 
             // Set item spacing
-            badgeLayout.setItemSpacing((int) (getResources().getDisplayMetrics().density * 24));
+            badgeLayout.setSpacing((int) (getResources().getDisplayMetrics().density * 24));
 
             badgeLayout.addOnBadgeClickedListener(this);
         }

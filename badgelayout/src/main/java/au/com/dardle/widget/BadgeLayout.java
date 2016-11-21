@@ -38,7 +38,7 @@ public class BadgeLayout extends FrameLayout {
         }
     };
 
-    private int mItemSpacing;
+    private int mSpacing;
 
     public interface OnBadgeClickedListener {
         void onBadgeClicked(Badge badge);
@@ -66,7 +66,7 @@ public class BadgeLayout extends FrameLayout {
 
         final TintTypedArray tintTypedArray = TintTypedArray.obtainStyledAttributes(context, attrs, R.styleable
                 .BadgeLayout);
-        mItemSpacing = tintTypedArray.getDimensionPixelSize(R.styleable.BadgeLayout_itemSpacing, 8);
+        mSpacing = tintTypedArray.getDimensionPixelSize(R.styleable.BadgeLayout_spacing, 8);
     }
 
     @Override
@@ -124,14 +124,14 @@ public class BadgeLayout extends FrameLayout {
         mBadges.clear();
     }
 
-    public void setItemSpacing(int spacing) {
-        mItemSpacing = spacing;
+    public void setSpacing(int spacing) {
+        mSpacing = spacing;
         for (int i = 1; i < mBadges.size(); i++) {
             Badge badge = mBadges.get(i);
             View view = badge.mView;
             if (view != null) {
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
-                layoutParams.leftMargin = mItemSpacing;
+                layoutParams.leftMargin = mSpacing;
             }
         }
     }
@@ -199,7 +199,7 @@ public class BadgeLayout extends FrameLayout {
             // Add view
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             if (mContentContainer.getChildCount() > 0) {
-                layoutParams.leftMargin = mItemSpacing;
+                layoutParams.leftMargin = mSpacing;
             }
 
             badgeView.setLayoutParams(layoutParams);
