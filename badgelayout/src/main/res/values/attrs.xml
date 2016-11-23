@@ -5,6 +5,7 @@
         <attr name="spacing" format="dimension" />
         <attr name="badgeBackground" format="reference" />
         <attr name="badgeTextColor" format="color" />
+        <attr name="badgeTextSize" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="BadgeItem">

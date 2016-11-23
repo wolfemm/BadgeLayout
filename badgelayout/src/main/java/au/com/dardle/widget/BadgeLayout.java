@@ -2,7 +2,6 @@ package au.com.dardle.widget;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -45,6 +44,8 @@ public class BadgeLayout extends FrameLayout {
 
     private ColorStateList mBadgeTextColors;
 
+    private int mBadgeTextSize;
+
     public interface OnBadgeClickedListener {
         void onBadgeClicked(Badge badge);
     }
@@ -75,15 +76,12 @@ public class BadgeLayout extends FrameLayout {
         mBadgeBackgroundResId = tintTypedArray.getResourceId(R.styleable.BadgeLayout_badgeBackground, 0);
 
         // Badge text color
-        final TypedArray typedArray = context.obtainStyledAttributes(android.support.v7.appcompat.R.styleable.TextAppearance);
-        try {
-            mBadgeTextColors = typedArray.getColorStateList(R.styleable.TextAppearance_android_textColor);
-        } finally {
-            typedArray.recycle();
-        }
         if (tintTypedArray.hasValue(R.styleable.BadgeLayout_badgeTextColor)) {
             mBadgeTextColors = tintTypedArray.getColorStateList(R.styleable.BadgeLayout_badgeTextColor);
         }
+
+        // Badge text size
+        mBadgeTextSize = tintTypedArray.getDimensionPixelSize(R.styleable.BadgeLayout_badgeTextSize, -1);
 
         tintTypedArray.recycle();
     }
@@ -337,6 +335,9 @@ public class BadgeLayout extends FrameLayout {
             mTextView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
             if (mBadgeTextColors != null) {
                 mTextView.setTextColor(mBadgeTextColors);
+            }
+            if (mBadgeTextSize != -1) {
+                mTextView.setTextSize(mBadgeTextSize);
             }
             addView(mTextView);
         }
