@@ -23,18 +23,50 @@
 
     </au.com.dardle.widget.BadgeLayout>
 
-    <au.com.dardle.widget.BadgeLayout
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:badgeBackground="@drawable/background_app_badge"
-        app:badgeTextColor="@android:color/white"
-        app:spacing="24dp">
+        android:scrollbars="none">
 
-        <au.com.dardle.widget.BadgeItem
-            android:layout_width="wrap_content"
+        <au.com.dardle.widget.BadgeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TOP CHARTS " />
+            app:badgeBackground="@drawable/background_app_badge"
+            app:badgeTextColor="@android:color/white"
+            app:spacing="8dp">
 
-    </au.com.dardle.widget.BadgeLayout>
+            <au.com.dardle.widget.BadgeItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TOP CHARTS" />
+
+            <au.com.dardle.widget.BadgeItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GAMES" />
+
+            <au.com.dardle.widget.BadgeItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CATEGORIES" />
+
+            <au.com.dardle.widget.BadgeItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EARLY ACCESS" />
+
+            <au.com.dardle.widget.BadgeItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FAMILY" />
+
+            <au.com.dardle.widget.BadgeItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EDITORS' CHOICE" />
+
+        </au.com.dardle.widget.BadgeLayout>
+
+    </HorizontalScrollView>
 
 </LinearLayout>
