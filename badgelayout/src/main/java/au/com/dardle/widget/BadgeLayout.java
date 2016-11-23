@@ -1,7 +1,6 @@
 package au.com.dardle.widget;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -161,12 +160,8 @@ public class BadgeLayout extends FrameLayout {
         // Get a badge object
         final Badge badge = newBadge();
 
-        // Set background
-        badge.setBackground(badgeItem.mBackgroundResId);
-
         // Set text
         badge.setText(badgeItem.mText);
-        badge.setTextColor(badgeItem.mTextColors);
 
         // Set icon
         badge.setIcon(badgeItem.mIcon);
@@ -225,20 +220,13 @@ public class BadgeLayout extends FrameLayout {
      * The Badge
      */
     public static final class Badge {
-        // The background
+        // The icon
         @Nullable
-        private int mBackgroundResId;
+        private Drawable mIcon;
 
         // The text
         @Nullable
         private CharSequence mText;
-
-        @Nullable
-        private ColorStateList mTextColors;
-
-        // The icon
-        @Nullable
-        private Drawable mIcon;
 
         // Selected status, default is un-selected
         private boolean mSelected = false;
@@ -267,31 +255,25 @@ public class BadgeLayout extends FrameLayout {
             return this;
         }
 
-        @Nullable
-        public CharSequence getText() {
-            return mText;
-        }
-
-        public void setSelected(boolean selected) {
+        @NonNull
+        public Badge setSelected(boolean selected) {
             // Set selected status and update associated view
             mSelected = selected;
             updateView();
+            return this;
         }
 
-        public void setEnabled(boolean enabled) {
+        @NonNull
+        public Badge setEnabled(boolean enabled) {
             // Set enabled status and update associated view
             mEnabled = enabled;
             updateView();
+            return this;
         }
 
-        public void setBackground(int backgroundResId) {
-            mBackgroundResId = backgroundResId;
-            updateView();
-        }
-
-        public void setTextColor(ColorStateList colors) {
-            mTextColors = colors;
-            updateView();
+        @Nullable
+        public CharSequence getText() {
+            return mText;
         }
 
         private void updateView() {
@@ -360,17 +342,11 @@ public class BadgeLayout extends FrameLayout {
 
         private void update() {
             if (mBadge != null) {
-                // Set background
-                setBackgroundResource(mBadge.mBackgroundResId);
-
                 // Set icon
                 mImageView.setImageDrawable(mBadge.mIcon);
 
                 // Set text
                 mTextView.setText(mBadge.mText);
-                if (mBadge.mTextColors != null) {
-                    mTextView.setTextColor(mBadge.mTextColors);
-                }
 
                 // Set status
                 setSelected(mBadge.mSelected);
