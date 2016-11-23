@@ -39,6 +39,7 @@ public class BadgeLayout extends FrameLayout {
     };
 
     private int mSpacing;
+    private final int mBadgeBackgroundResId;
 
     public interface OnBadgeClickedListener {
         void onBadgeClicked(Badge badge);
@@ -67,6 +68,7 @@ public class BadgeLayout extends FrameLayout {
         final TintTypedArray tintTypedArray = TintTypedArray.obtainStyledAttributes(context, attrs, R.styleable
                 .BadgeLayout);
         mSpacing = tintTypedArray.getDimensionPixelSize(R.styleable.BadgeLayout_spacing, 8);
+        mBadgeBackgroundResId = tintTypedArray.getResourceId(R.styleable.BadgeLayout_badgeBackground, 0);
     }
 
     @Override
@@ -302,6 +304,9 @@ public class BadgeLayout extends FrameLayout {
             // By default, icon and text are placed vertically and aligned to the center
             setOrientation(VERTICAL);
             setGravity(Gravity.CENTER);
+            if (mBadgeBackgroundResId != 0) {
+                setBackgroundResource(mBadgeBackgroundResId);
+            }
 
             // Add image view for the icon
             mImageView = new ImageView(context);

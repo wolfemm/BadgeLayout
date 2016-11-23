@@ -14,14 +14,25 @@
         <au.com.dardle.widget.BadgeItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/ic_badge_personal"
             android:text="Personal" />
 
         <au.com.dardle.widget.BadgeItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/ic_badge_business"
-            android:text="Business" />
+            android:icon="@drawable/ic_badge_business" />
+
+    </au.com.dardle.widget.BadgeLayout>
+
+    <au.com.dardle.widget.BadgeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:badgeBackground="@drawable/background_app_badge"
+        app:spacing="24dp">
+
+        <au.com.dardle.widget.BadgeItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TOP CHARTS " />
 
     </au.com.dardle.widget.BadgeLayout>
 
