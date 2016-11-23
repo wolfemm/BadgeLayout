@@ -1,6 +1,8 @@
 package au.com.dardle.widget;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -41,6 +43,8 @@ public class BadgeLayout extends FrameLayout {
     private int mSpacing;
     private final int mBadgeBackgroundResId;
 
+    private ColorStateList mBadgeTextColors;
+
     public interface OnBadgeClickedListener {
         void onBadgeClicked(Badge badge);
     }
@@ -69,6 +73,19 @@ public class BadgeLayout extends FrameLayout {
                 .BadgeLayout);
         mSpacing = tintTypedArray.getDimensionPixelSize(R.styleable.BadgeLayout_spacing, 8);
         mBadgeBackgroundResId = tintTypedArray.getResourceId(R.styleable.BadgeLayout_badgeBackground, 0);
+
+        // Badge text color
+        final TypedArray typedArray = context.obtainStyledAttributes(android.support.v7.appcompat.R.styleable.TextAppearance);
+        try {
+            mBadgeTextColors = typedArray.getColorStateList(R.styleable.TextAppearance_android_textColor);
+        } finally {
+            typedArray.recycle();
+        }
+        if (tintTypedArray.hasValue(R.styleable.BadgeLayout_badgeTextColor)) {
+            mBadgeTextColors = tintTypedArray.getColorStateList(R.styleable.BadgeLayout_badgeTextColor);
+        }
+
+        tintTypedArray.recycle();
     }
 
     @Override
@@ -318,6 +335,9 @@ public class BadgeLayout extends FrameLayout {
             mTextView.setLines(1);
             mTextView.setEllipsize(TextUtils.TruncateAt.END);
             mTextView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+            if (mBadgeTextColors != null) {
+                mTextView.setTextColor(mBadgeTextColors);
+            }
             addView(mTextView);
         }
 

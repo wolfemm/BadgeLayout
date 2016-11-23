@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:badgeBackground="@drawable/background_app_badge"
+        app:badgeTextColor="@android:color/white"
         app:spacing="24dp">
 
         <au.com.dardle.widget.BadgeItem
