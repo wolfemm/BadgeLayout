@@ -103,6 +103,8 @@ public class BadgeLayoutActivity extends AppCompatActivity {
             badgeLayout.setSpacing((int) (getResources().getDisplayMetrics().density * 24));
 
             badgeLayout.addOnBadgeClickedListener(this);
+
+            setupAppBadgeLayout();
         }
 
         @Override
@@ -117,6 +119,9 @@ public class BadgeLayoutActivity extends AppCompatActivity {
         public void onBadgeClicked(BadgeLayout.Badge badge) {
             Toast.makeText(getActivity(), badge.getText() != null ? badge.getText() : "", Toast.LENGTH_SHORT)
                     .show();
+        }
+
+        private void setupAppBadgeLayout() {
         }
     }
 }

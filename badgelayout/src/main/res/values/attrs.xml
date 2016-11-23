@@ -6,7 +6,9 @@
     </declare-styleable>
 
     <declare-styleable name="BadgeItem">
+        <attr name="android:background" />
         <attr name="android:text" />
+        <attr name="android:textColor" />
         <attr name="android:icon" />
         <attr name="android:enabled" />
         <attr name="selected" format="boolean" />
