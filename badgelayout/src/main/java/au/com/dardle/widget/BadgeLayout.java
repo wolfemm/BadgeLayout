@@ -158,19 +158,19 @@ public class BadgeLayout extends FrameLayout {
     public void setBadgeBackground(int badgeBackgroundResId) {
         mBadgeBackgroundResId = badgeBackgroundResId;
 
-        update();
+        updateBadges();
     }
 
     public void setBadgeTextPosition(BadgeTextPosition badgeTextPosition) {
         mBadgeTextPosition = badgeTextPosition;
 
-        update();
+        updateBadges();
     }
 
     public void setBadgeTextColor(ColorStateList badgeTextColor) {
         mBadgeTextColors = badgeTextColor;
 
-        update();
+        updateBadges();
     }
 
     public void addOnBadgeClickedListener(@NonNull OnBadgeClickedListener onBadgeClickedListener) {
@@ -252,7 +252,7 @@ public class BadgeLayout extends FrameLayout {
         }
     }
 
-    private void update() {
+    private void updateBadges() {
         for (Badge badge : mBadges) {
             badge.updateView();
         }
@@ -345,34 +345,18 @@ public class BadgeLayout extends FrameLayout {
         public BadgeView(Context context) {
             super(context);
 
-            // By default, icon and text are placed vertically and aligned to the center
-            if (mBadgeTextPosition.equals(BadgeTextPosition.BOTTOM) || mBadgeTextPosition.equals(BadgeTextPosition.TOP)) {
-                setOrientation(VERTICAL);
-            } else {
-                setOrientation(HORIZONTAL);
-            }
-            setGravity(Gravity.CENTER);
-
-            // Add image view for the icon
+            // Create the image view, and setup it's default parameters
             mImageView = new ImageView(context);
             mImageView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 
-            // Add text view for the text
+            // Create the text view, and setup it's default parameters
             mTextView = new TextView(context);
+            mTextView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
             mTextView.setLines(1);
             mTextView.setEllipsize(TextUtils.TruncateAt.END);
-            mTextView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            if (mBadgeTextSize != -1) {
-                mTextView.setTextSize(mBadgeTextSize);
-            }
 
-            if (mBadgeTextPosition.equals(BadgeTextPosition.TOP) || mBadgeTextPosition.equals(BadgeTextPosition.LEFT)) {
-                addView(mTextView);
-                addView(mImageView);
-            } else {
-                addView(mImageView);
-                addView(mTextView);
-            }
+            // Update views based on the badge content
+            update();
         }
 
         @Override
@@ -400,43 +384,61 @@ public class BadgeLayout extends FrameLayout {
         }
 
         private void update() {
-            if (mBadge != null) {
-                setBackgroundResource(mBadgeBackgroundResId);
+            updateLayout();
+            updateContent();
+        }
 
-                // Set icon
+        private void updateLayout() {
+            // Default gravity to center
+            setGravity(Gravity.CENTER);
+
+            // Setup background
+            setBackgroundResource(mBadgeBackgroundResId);
+
+            // Set orientation
+            if (mBadgeTextPosition == BadgeTextPosition.LEFT || mBadgeTextPosition == BadgeTextPosition.RIGHT) {
+                setOrientation(HORIZONTAL);
+            } else {
+                setOrientation(VERTICAL);
+            }
+
+            // Add views
+            removeAllViews();
+            switch (mBadgeTextPosition) {
+                case LEFT:
+                case TOP:
+                    addView(mTextView);
+                    addView(mImageView);
+                    break;
+
+                case RIGHT:
+                case BOTTOM:
+                    addView(mImageView);
+                    addView(mTextView);
+                    break;
+            }
+        }
+
+        private void updateContent() {
+            if (mBadge != null) {
+                // Setup image
                 mImageView.setImageDrawable(mBadge.mIcon);
 
-                // Setup text view
+                // Setup text
                 mTextView.setText(mBadge.mText);
+                if (mBadgeTextColors != null) {
+                    mTextView.setTextColor(mBadgeTextColors);
+                }
                 if (TextUtils.isEmpty(mTextView.getText())) {
                     mTextView.setVisibility(GONE);
                 } else {
                     mTextView.setVisibility(VISIBLE);
                 }
 
-                if (mBadgeTextColors != null) {
-                    mTextView.setTextColor(mBadgeTextColors);
-                }
-
                 // Set status
                 setSelected(mBadge.mSelected);
                 setEnabled(mBadge.mEnabled);
-            } else {
-                setBackgroundResource(0);
-
-                // Clear and hide icon
-                mImageView.setImageDrawable(null);
-                mImageView.setVisibility(GONE);
-
-                // Clear and hide text
-                mTextView.setText("");
-                mTextView.setVisibility(GONE);
-
-                // Set status to default values
-                setSelected(false);
-                setEnabled(false);
             }
         }
     }
-
 }
