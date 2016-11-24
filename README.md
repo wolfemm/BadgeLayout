@@ -2,7 +2,7 @@ BadgeLayout
 =======
 
 A powerful layout to display badges, tags, or labels in a pretty way for Android apps
-
+![](https://cloud.githubusercontent.com/assets/22950288/20586229/2bdda8a8-b256-11e6-8f5b-c60d836ca248.png)
 
 Download
 --------
