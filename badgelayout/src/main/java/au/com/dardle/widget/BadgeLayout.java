@@ -40,7 +40,7 @@ public class BadgeLayout extends FrameLayout {
     };
 
     private int mSpacing;
-    private final int mBadgeBackgroundResId;
+    private int mBadgeBackgroundResId;
 
     private ColorStateList mBadgeTextColors;
 
@@ -67,6 +67,7 @@ public class BadgeLayout extends FrameLayout {
         // Add the content linear layout
         mContentContainer = new LinearLayout(context);
         mContentContainer.setOrientation(LinearLayout.HORIZONTAL);
+        mContentContainer.setGravity(Gravity.CENTER_VERTICAL);
         super.addView(mContentContainer, 0, new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams
                 .WRAP_CONTENT));
 
@@ -150,6 +151,22 @@ public class BadgeLayout extends FrameLayout {
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
                 layoutParams.leftMargin = mSpacing;
             }
+        }
+    }
+
+    public void setBadgeBackground(int badgeBackgroundResId) {
+        mBadgeBackgroundResId = badgeBackgroundResId;
+
+        for (Badge badge : mBadges) {
+            badge.updateView();
+        }
+    }
+
+    public void setBadgeTextColor(ColorStateList badgeTextColor) {
+        mBadgeTextColors = badgeTextColor;
+
+        for (Badge badge : mBadges) {
+            badge.updateView();
         }
     }
 
@@ -319,9 +336,6 @@ public class BadgeLayout extends FrameLayout {
             // By default, icon and text are placed vertically and aligned to the center
             setOrientation(VERTICAL);
             setGravity(Gravity.CENTER);
-            if (mBadgeBackgroundResId != 0) {
-                setBackgroundResource(mBadgeBackgroundResId);
-            }
 
             // Add image view for the icon
             mImageView = new ImageView(context);
@@ -333,9 +347,6 @@ public class BadgeLayout extends FrameLayout {
             mTextView.setLines(1);
             mTextView.setEllipsize(TextUtils.TruncateAt.END);
             mTextView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            if (mBadgeTextColors != null) {
-                mTextView.setTextColor(mBadgeTextColors);
-            }
             if (mBadgeTextSize != -1) {
                 mTextView.setTextSize(mBadgeTextSize);
             }
@@ -368,16 +379,29 @@ public class BadgeLayout extends FrameLayout {
 
         private void update() {
             if (mBadge != null) {
+                setBackgroundResource(mBadgeBackgroundResId);
+
                 // Set icon
                 mImageView.setImageDrawable(mBadge.mIcon);
 
-                // Set text
+                // Setup text view
                 mTextView.setText(mBadge.mText);
+                if (TextUtils.isEmpty(mTextView.getText())) {
+                    mTextView.setVisibility(GONE);
+                } else {
+                    mTextView.setVisibility(VISIBLE);
+                }
+
+                if (mBadgeTextColors != null) {
+                    mTextView.setTextColor(mBadgeTextColors);
+                }
 
                 // Set status
                 setSelected(mBadge.mSelected);
                 setEnabled(mBadge.mEnabled);
             } else {
+                setBackgroundResource(0);
+
                 // Clear and hide icon
                 mImageView.setImageDrawable(null);
                 mImageView.setVisibility(GONE);

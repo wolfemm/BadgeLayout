@@ -19,8 +19,10 @@ public class MainActivity extends AppCompatActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
+            // Add content from xml
             addPreferencesFromResource(R.xml.fragment_main_preference);
 
+            // Setup 'From XML' preference
             findPreference(getString(R.string.key_from_xml)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            // Setup 'From code' preference
             findPreference(getString(R.string.key_from_code)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {

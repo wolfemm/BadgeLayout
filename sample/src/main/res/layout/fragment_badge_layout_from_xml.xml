@@ -14,22 +14,30 @@
         <au.com.dardle.widget.BadgeItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Personal" />
+            android:icon="@mipmap/ic_launcher"
+            android:text="Badge" />
 
         <au.com.dardle.widget.BadgeItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/ic_badge_business" />
+            android:text="Badge" />
+
+        <au.com.dardle.widget.BadgeItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@mipmap/ic_launcher" />
 
     </au.com.dardle.widget.BadgeLayout>
 
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:scrollbars="none">
 
         <au.com.dardle.widget.BadgeLayout
-            android:layout_width="match_parent"
+            android:id="@+id/app_badge_layout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:badgeBackground="@drawable/background_app_badge"
             app:badgeTextColor="@android:color/white"
