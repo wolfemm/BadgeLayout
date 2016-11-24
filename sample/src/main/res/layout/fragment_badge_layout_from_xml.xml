@@ -77,4 +77,27 @@
 
     </HorizontalScrollView>
 
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:scrollbars="none">
+
+        <au.com.dardle.widget.BadgeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:badgeBackground="@drawable/background_so_badge"
+            app:badgeTextColor="@android:color/white"
+            app:badgeTextPosition="right">
+
+            <au.com.dardle.widget.BadgeItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_so_badge_gold"
+                android:text="Guru" />
+
+        </au.com.dardle.widget.BadgeLayout>
+
+    </HorizontalScrollView>
+
 </LinearLayout>
