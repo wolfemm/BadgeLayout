@@ -43,7 +43,7 @@ public class BadgeLayoutActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public static class BadgeLayoutFromXMLFragment extends Fragment implements BadgeLayout.OnBadgeClickedListener {
+    public static class BadgeLayoutFromXMLFragment extends BadgeLayoutFragment {
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,8 +55,10 @@ public class BadgeLayoutActivity extends AppCompatActivity {
             super.onActivityCreated(savedInstanceState);
 
             BadgeLayout badgeLayout = (BadgeLayout) getActivity().findViewById(R.id.badge_layout);
-
             badgeLayout.addOnBadgeClickedListener(this);
+
+            BadgeLayout appBadgeLayout = (BadgeLayout) getActivity().findViewById(R.id.app_badge_layout);
+            appBadgeLayout.addOnBadgeClickedListener(this);
         }
 
         @Override
@@ -66,15 +68,9 @@ public class BadgeLayoutActivity extends AppCompatActivity {
             BadgeLayout badgeLayout = (BadgeLayout) getActivity().findViewById(R.id.badge_layout);
             badgeLayout.removeOnBadgeClickedListener(this);
         }
-
-        @Override
-        public void onBadgeClicked(BadgeLayout.Badge badge) {
-            Toast.makeText(getActivity(), badge.getText() != null ? badge.getText() : "", Toast.LENGTH_SHORT)
-                    .show();
-        }
     }
 
-    public static class BadgeLayoutFromCodeFragment extends Fragment implements BadgeLayout.OnBadgeClickedListener {
+    public static class BadgeLayoutFromCodeFragment extends BadgeLayoutFragment {
 
         @Nullable
         @Override
@@ -86,23 +82,8 @@ public class BadgeLayoutActivity extends AppCompatActivity {
         public void onActivityCreated(@Nullable Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
 
-            BadgeLayout badgeLayout = (BadgeLayout) getActivity().findViewById(R.id.badge_layout);
-
-            // Add badges
-            badgeLayout.addBadge(badgeLayout
-                    .newBadge()
-                    .setText("Personal")
-                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_badge_personal, getContext().getTheme())));
-
-            badgeLayout.addBadge(badgeLayout
-                    .newBadge()
-                    .setText("Business")
-                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_badge_business, getContext().getTheme())));
-
-            // Set item spacing
-            badgeLayout.setSpacing((int) (getResources().getDisplayMetrics().density * 24));
-
-            badgeLayout.addOnBadgeClickedListener(this);
+            setupDefaultBadgeLayout();
+            setupAppBadgeLayout();
         }
 
         @Override
@@ -113,9 +94,69 @@ public class BadgeLayoutActivity extends AppCompatActivity {
             badgeLayout.removeOnBadgeClickedListener(this);
         }
 
+        private void setupDefaultBadgeLayout() {
+            BadgeLayout badgeLayout = (BadgeLayout) getActivity().findViewById(R.id.badge_layout);
+
+            // Add badges
+            badgeLayout.addBadge(badgeLayout
+                    .newBadge()
+                    .setText("Badge")
+                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_launcher, getContext().getTheme())));
+
+            badgeLayout.addBadge(badgeLayout
+                    .newBadge()
+                    .setText("Badge"));
+
+            badgeLayout.addBadge(badgeLayout
+                    .newBadge()
+                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_launcher, getContext().getTheme())));
+
+            // Set item spacing
+            badgeLayout.setSpacing((int) (getResources().getDisplayMetrics().density * 24));
+
+            badgeLayout.addOnBadgeClickedListener(this);
+        }
+
+        private void setupAppBadgeLayout() {
+            BadgeLayout appBadgeLayout = (BadgeLayout) getActivity().findViewById(R.id.app_badge_layout);
+            appBadgeLayout.addOnBadgeClickedListener(this);
+
+            appBadgeLayout.setBadgeBackground(R.drawable.background_app_badge);
+            appBadgeLayout.setSpacing((int) (getResources().getDisplayMetrics().density * 8));
+            appBadgeLayout.setBadgeTextColor(ResourcesCompat.getColorStateList(getResources(), android.R.color.white, getContext().getTheme()));
+
+            // Add badges
+            appBadgeLayout.addBadge(appBadgeLayout
+                    .newBadge()
+                    .setText("TOP CHARTS"));
+
+            appBadgeLayout.addBadge(appBadgeLayout
+                    .newBadge()
+                    .setText("GAMES"));
+
+            appBadgeLayout.addBadge(appBadgeLayout
+                    .newBadge()
+                    .setText("CATEGORIES"));
+
+            appBadgeLayout.addBadge(appBadgeLayout
+                    .newBadge()
+                    .setText("EARLY ACCESS"));
+
+            appBadgeLayout.addBadge(appBadgeLayout
+                    .newBadge()
+                    .setText("FAMILY"));
+
+            appBadgeLayout.addBadge(appBadgeLayout
+                    .newBadge()
+                    .setText("EDITORS' CHOICE"));
+        }
+    }
+
+    public static class BadgeLayoutFragment extends Fragment implements BadgeLayout.OnBadgeClickedListener {
+
         @Override
         public void onBadgeClicked(BadgeLayout.Badge badge) {
-            Toast.makeText(getActivity(), badge.getText() != null ? badge.getText() : "", Toast.LENGTH_SHORT)
+            Toast.makeText(getActivity(), (badge.getText() != null ? badge.getText() : "") + " is clicked", Toast.LENGTH_SHORT)
                     .show();
         }
     }
