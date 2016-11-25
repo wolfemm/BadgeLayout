@@ -3,14 +3,23 @@
 
     <declare-styleable name="BadgeLayout">
         <attr name="spacing" format="dimension" />
+
         <attr name="badgeBackground" format="reference" />
+        <attr name="badgeContentSpacing" format="dimension" />
+        <attr name="badgeTextPosition" format="enum">
+            <enum name="left" value="0" />
+            <enum name="top" value="1" />
+            <enum name="right" value="2" />
+            <enum name="bottom" value="3" />
+        </attr>
+
         <attr name="badgeTextColor" format="color" />
         <attr name="badgeTextSize" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="BadgeItem">
-        <attr name="android:text" />
         <attr name="android:icon" />
+        <attr name="android:text" />
         <attr name="android:enabled" />
         <attr name="selected" format="boolean" />
     </declare-styleable>

@@ -77,4 +77,42 @@
 
     </HorizontalScrollView>
 
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:scrollbars="none">
+
+        <au.com.dardle.widget.BadgeLayout
+            android:id="@+id/so_badge_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:badgeBackground="@drawable/background_so_badge"
+            app:badgeContentSpacing="10dp"
+            app:badgeTextColor="@android:color/white"
+            app:badgeTextPosition="right"
+            app:spacing="8dp">
+
+            <au.com.dardle.widget.BadgeItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_so_badge_bronze"
+                android:text="Teacher" />
+
+            <au.com.dardle.widget.BadgeItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_so_badge_silver"
+                android:text="Guru" />
+
+            <au.com.dardle.widget.BadgeItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_so_badge_gold"
+                android:text="Great Answer" />
+
+        </au.com.dardle.widget.BadgeLayout>
+
+    </HorizontalScrollView>
+
 </LinearLayout>

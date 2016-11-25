@@ -3,13 +3,14 @@ BadgeLayout
 
 A powerful layout to display badges, tags, or labels in a pretty way for Android apps
 
+![](https://cloud.githubusercontent.com/assets/22950288/20586259/79a508b0-b256-11e6-93d8-5979fae2908a.png)
 
 Download
 --------
 
 Download via Gradle:
 ```groovy
-compile 'au.com.dardle:badgelayout:0.0.3'
+compile 'au.com.dardle:badgelayout:0.0.5'
 ```
 
 

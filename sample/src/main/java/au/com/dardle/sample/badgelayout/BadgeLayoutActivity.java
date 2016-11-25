@@ -59,6 +59,9 @@ public class BadgeLayoutActivity extends AppCompatActivity {
 
             BadgeLayout appBadgeLayout = (BadgeLayout) getActivity().findViewById(R.id.app_badge_layout);
             appBadgeLayout.addOnBadgeClickedListener(this);
+
+            BadgeLayout soBadgeLayout = (BadgeLayout) getActivity().findViewById(R.id.so_badge_layout);
+            soBadgeLayout.addOnBadgeClickedListener(this);
         }
 
         @Override
@@ -84,6 +87,7 @@ public class BadgeLayoutActivity extends AppCompatActivity {
 
             setupDefaultBadgeLayout();
             setupAppBadgeLayout();
+            setupSoBadgeLayout();
         }
 
         @Override
@@ -149,6 +153,33 @@ public class BadgeLayoutActivity extends AppCompatActivity {
             appBadgeLayout.addBadge(appBadgeLayout
                     .newBadge()
                     .setText("EDITORS' CHOICE"));
+        }
+
+        private void setupSoBadgeLayout() {
+            BadgeLayout soBadgeLayout = (BadgeLayout) getActivity().findViewById(R.id.so_badge_layout);
+            soBadgeLayout.addOnBadgeClickedListener(this);
+
+            soBadgeLayout.setBadgeBackground(R.drawable.background_so_badge);
+            soBadgeLayout.setBadgeContentSpacing((int) (getResources().getDisplayMetrics().densgit ity * 10));
+            soBadgeLayout.setSpacing((int) (getResources().getDisplayMetrics().density * 8));
+            soBadgeLayout.setBadgeTextColor(ResourcesCompat.getColorStateList(getResources(), android.R.color.white, getContext().getTheme()));
+            soBadgeLayout.setBadgeTextPosition(BadgeLayout.BadgeTextPosition.RIGHT);
+
+            // Add badges
+            soBadgeLayout.addBadge(soBadgeLayout
+                    .newBadge()
+                    .setText("Teacher")
+                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_so_badge_bronze, getContext().getTheme())));
+
+            soBadgeLayout.addBadge(soBadgeLayout
+                    .newBadge()
+                    .setText("Guru")
+                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_so_badge_silver, getContext().getTheme())));
+
+            soBadgeLayout.addBadge(soBadgeLayout
+                    .newBadge()
+                    .setText("Great Answer")
+                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_so_badge_gold, getContext().getTheme())));
         }
     }
 
