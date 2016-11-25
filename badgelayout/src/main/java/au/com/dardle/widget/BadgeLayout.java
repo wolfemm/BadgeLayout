@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2016 Dardle Pty Ltd
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package au.com.dardle.widget;
 
 import android.content.Context;
@@ -19,7 +35,40 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-
+/**
+ * BadgeLayout provides a horizontal layout to display badges.
+ * <p>
+ * <p>Population of the badges to display is
+ * done through {@link Badge} instances. You create badges via {@link #newBadge()}. From there you can
+ * change the badge's label or icon via {@link Badge#setText(CharSequence)} and {@link Badge#setIcon(Drawable)}
+ * respectively. To display the badge, you need to add it to the layout via one of the
+ * {@link #addBadge(Badge)} methods. For example:
+ * <pre>
+ * BadgeLayout badgeLayout = ...;
+ * badgeLayout.addBadge(badgeLayout.newBadge().setText("Badge 1"));
+ * badgeLayout.addBadge(badgeLayout.newBadge().setText("Badge 2"));
+ * badgeLayout.addBadge(badgeLayout.newBadge().setText("Badge 3"));
+ * </pre>
+ * You should set a listener via {@link #addOnBadgeClickedListener(OnBadgeClickedListener)} to be
+ * notified when any badge is clicked.
+ * <p>
+ * <p>You can also add items to BadgeLayout in your layout through the use of {@link BadgeItem}.
+ * An example usage is like so:</p>
+ * <p>
+ * <pre>
+ * &lt;au.com.dardle.widget.BadgeLayout
+ *         android:layout_height=&quot;wrap_content&quot;
+ *         android:layout_width=&quot;match_parent&quot;&gt;
+ *
+ *     &lt;au.com.dardle.widget.BadgeItem
+ *             android:text=&quot;@string/badge_text&quot;/&gt;
+ *
+ *     &lt;au.com.dardle.widget.BadgeItem
+ *             android:icon=&quot;@drawable/ic_android&quot;/&gt;
+ *
+ * &lt;/au.com.dardle.widget.BadgeLayout&gt;
+ * </pre>
+ */
 public class BadgeLayout extends FrameLayout {
     private static final Pools.Pool<Badge> sBadgePool = new Pools.SynchronizedPool<>(16);
     private final Pools.Pool<BadgeView> mBadgeViewPool = new Pools.SimplePool<>(12);
