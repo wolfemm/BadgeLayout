@@ -158,6 +158,12 @@ public class BadgeLayout extends FrameLayout {
         }
     }
 
+    public void setBadgeContentSpacing(int badgeContentSpacing) {
+        mBadgeContentSpacing = badgeContentSpacing;
+
+        updateBadges();
+    }
+
     public void setBadgeBackground(int badgeBackgroundResId) {
         mBadgeBackgroundResId = badgeBackgroundResId;
 

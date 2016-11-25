@@ -84,6 +84,7 @@
         android:scrollbars="none">
 
         <au.com.dardle.widget.BadgeLayout
+            android:id="@+id/so_badge_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:badgeBackground="@drawable/background_so_badge"
