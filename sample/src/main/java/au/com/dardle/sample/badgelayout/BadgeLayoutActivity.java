@@ -160,7 +160,7 @@ public class BadgeLayoutActivity extends AppCompatActivity {
             soBadgeLayout.addOnBadgeClickedListener(this);
 
             soBadgeLayout.setBadgeBackground(R.drawable.background_so_badge);
-            soBadgeLayout.setBadgeContentSpacing((int) (getResources().getDisplayMetrics().densgit ity * 10));
+            soBadgeLayout.setBadgeContentSpacing((int) (getResources().getDisplayMetrics().density * 10));
             soBadgeLayout.setSpacing((int) (getResources().getDisplayMetrics().density * 8));
             soBadgeLayout.setBadgeTextColor(ResourcesCompat.getColorStateList(getResources(), android.R.color.white, getContext().getTheme()));
             soBadgeLayout.setBadgeTextPosition(BadgeLayout.BadgeTextPosition.RIGHT);
