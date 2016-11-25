@@ -5,6 +5,7 @@
         <attr name="spacing" format="dimension" />
 
         <attr name="badgeBackground" format="reference" />
+        <attr name="badgeContentSpacing" format="dimension" />
         <attr name="badgeTextPosition" format="enum">
             <enum name="left" value="0" />
             <enum name="top" value="1" />

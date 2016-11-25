@@ -40,6 +40,8 @@ public class BadgeLayout extends FrameLayout {
     };
 
     private int mSpacing;
+
+    private int mBadgeContentSpacing;
     private int mBadgeBackgroundResId;
     private BadgeTextPosition mBadgeTextPosition;
 
@@ -74,6 +76,7 @@ public class BadgeLayout extends FrameLayout {
         final TintTypedArray tintTypedArray = TintTypedArray.obtainStyledAttributes(context, attrs, R.styleable
                 .BadgeLayout);
         mSpacing = tintTypedArray.getDimensionPixelSize(R.styleable.BadgeLayout_spacing, 8);
+        mBadgeContentSpacing = tintTypedArray.getDimensionPixelSize(R.styleable.BadgeLayout_badgeContentSpacing, 0);
         mBadgeBackgroundResId = tintTypedArray.getResourceId(R.styleable.BadgeLayout_badgeBackground, 0);
         mBadgeTextPosition = BadgeTextPosition.values()[tintTypedArray.getInt(R.styleable.BadgeLayout_badgeTextPosition, BadgeTextPosition.BOTTOM.ordinal())];
 
@@ -347,11 +350,9 @@ public class BadgeLayout extends FrameLayout {
 
             // Create the image view, and setup it's default parameters
             mImageView = new ImageView(context);
-            mImageView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 
             // Create the text view, and setup it's default parameters
             mTextView = new TextView(context);
-            mTextView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
             mTextView.setLines(1);
             mTextView.setEllipsize(TextUtils.TruncateAt.END);
 
@@ -404,19 +405,40 @@ public class BadgeLayout extends FrameLayout {
 
             // Add views
             removeAllViews();
+
+            int tvIndex = 0;
+            int ivIndex = 0;
+            LayoutParams tvLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LayoutParams ivLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
             switch (mBadgeTextPosition) {
                 case LEFT:
+                    ivIndex = 1;
+                    tvIndex = 0;
+                    tvLayoutParams.rightMargin = mBadgeContentSpacing;
+                    break;
+
                 case TOP:
-                    addView(mTextView);
-                    addView(mImageView);
+                    ivIndex = 1;
+                    tvIndex = 0;
+                    tvLayoutParams.bottomMargin = mBadgeContentSpacing;
                     break;
 
                 case RIGHT:
+                    ivIndex = 0;
+                    tvIndex = 1;
+                    tvLayoutParams.leftMargin = mBadgeContentSpacing;
+                    break;
+
                 case BOTTOM:
-                    addView(mImageView);
-                    addView(mTextView);
+                    ivIndex = 0;
+                    tvIndex = 1;
+                    tvLayoutParams.topMargin = mBadgeContentSpacing;
                     break;
             }
+
+            addView(mImageView, ivIndex, ivLayoutParams);
+            addView(mTextView, tvIndex, tvLayoutParams);
         }
 
         private void updateContent() {
@@ -428,6 +450,9 @@ public class BadgeLayout extends FrameLayout {
                 mTextView.setText(mBadge.mText);
                 if (mBadgeTextColors != null) {
                     mTextView.setTextColor(mBadgeTextColors);
+                }
+                if (mBadgeTextSize != -1) {
+                    mTextView.setTextSize(mBadgeTextSize);
                 }
                 if (TextUtils.isEmpty(mTextView.getText())) {
                     mTextView.setVisibility(GONE);
