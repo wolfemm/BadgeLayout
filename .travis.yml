@@ -8,4 +8,4 @@ android:
     - android-25
     - sys-img-x86-android-25
 
-script: ./gradlew build
+script: ./gradlew clean build
