@@ -28,4 +28,4 @@ android:
     - 'google-gdk-license-.+'
 
 script:
-  - ./gradlew build
+  - ./gradlew :badgelayout:build
