@@ -11,5 +11,7 @@ android:
     - android-22
     - sys-img-x86-android-22
     - extra-google-m2repository
-
+licenses:
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
 script: ./gradlew clean build
