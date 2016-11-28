@@ -12,4 +12,4 @@ android:
     - sys-img-x86-android-22
     - extra-google-m2repository
 
-script: ./gradlew build
+script: ./gradlew clean build
