@@ -1,5 +1,7 @@
 BadgeLayout
 =======
+![](https://api.travis-ci.org/luxiliu/BadgeLayout.svg?branch=develop)
+
 [![Download](https://api.bintray.com/packages/luxiliu/maven/BadgeLayout/images/download.svg)](https://bintray.com/luxiliu/maven/BadgeLayout/_latestVersion)
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/au.com.dardle/badgelayout/badge.svg)](https://maven-badges.herokuapp.com/maven-central/au.com.darlde/badgelayout)
