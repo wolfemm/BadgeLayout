@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.1'
@@ -7,14 +10,23 @@ android {
         applicationId "au.com.dardle.sample.badgelayout"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 2016112800
+        versionName "0.0.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        release {
+            storeFile file(properties.getProperty("sample.storeFile"))
+            storePassword properties.getProperty("sample.storePassword")
+            keyAlias properties.getProperty("sample.keyAlias")
+            keyPassword properties.getProperty("sample.keyPassword")
+        }
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
