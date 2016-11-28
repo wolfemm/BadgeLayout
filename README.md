@@ -1,6 +1,9 @@
 BadgeLayout
 =======
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-BadgeLayout-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4713)
+
+
 A powerful layout to display badges, tags, or labels in a pretty way for Android apps
 
 ![](https://cloud.githubusercontent.com/assets/22950288/20652677/cb9ad822-b551-11e6-92c5-b463f24ada96.png)
