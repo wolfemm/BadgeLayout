@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 
 ext {
-    currentVersionCode = 2016112800
-    currentVersionName = '0.0.7'
+    currentVersionCode = 2016112900
+    currentVersionName = '0.0.8'
 
     groupId = 'au.com.dardle'
     artifactId = 'badgelayout'
