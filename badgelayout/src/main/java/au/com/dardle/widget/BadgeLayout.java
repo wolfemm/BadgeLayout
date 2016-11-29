@@ -28,6 +28,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -70,7 +71,7 @@ import java.util.Iterator;
  * </pre>
  */
 
-public class BadgeLayout extends LinearLayout {
+public class BadgeLayout extends HorizontalScrollView {
     private static final Pools.Pool<Badge> sBadgePool = new Pools.SynchronizedPool<>(16);
 
     /**
