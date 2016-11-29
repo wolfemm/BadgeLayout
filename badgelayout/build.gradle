@@ -126,13 +126,8 @@ artifacts {
 
 // Bintray
 bintray {
-    Properties properties = new Properties()
-    if (project.rootProject.file('local.properties').exists()) {
-        properties.load(project.rootProject.file('local.properties').newDataInputStream())
-    }
-
-    user = properties.hasProperty("bintray.user") ? properties.getProperty("bintray.user") : ""
-    key = properties.hasProperty("bintray.apikey") ? properties.getProperty("bintray.apikey") : ""
+    user = BADGELAYOUT_BINTRAY_USER
+    key = BADGELAYOUT_BINTRAY_APIKEY
 
     configurations = ['archives']
     pkg {
@@ -148,7 +143,7 @@ bintray {
         version {
             gpg {
                 sign = true
-                passphrase = properties.getProperty("bintray.gpg.password")
+                passphrase = BADGELAYOUT_BINTRAY_GPS_PASSWORD
             }
         }
     }
