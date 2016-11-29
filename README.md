@@ -1,6 +1,6 @@
 BadgeLayout
 =======
-![](https://api.travis-ci.org/luxiliu/BadgeLayout.svg?branch=develop)
+[![Build Status](https://travis-ci.org/luxiliu/BadgeLayout.svg?branch=develop)](https://travis-ci.org/luxiliu/BadgeLayout)
 
 [![Download](https://api.bintray.com/packages/luxiliu/maven/BadgeLayout/images/download.svg)](https://bintray.com/luxiliu/maven/BadgeLayout/_latestVersion)
 
