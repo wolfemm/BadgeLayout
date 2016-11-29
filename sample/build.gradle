@@ -16,10 +16,10 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file(properties.getProperty("sample.storeFile"))
-            storePassword properties.getProperty("sample.storePassword")
-            keyAlias properties.getProperty("sample.keyAlias")
-            keyPassword properties.getProperty("sample.keyPassword")
+            storeFile file("release.keystore")
+            storePassword BADGELAYOUT_SAMPLE_RELEASE_STORE_PASSWORD
+            keyAlias BADGELAYOUT_SAMPLE_RELEASE_KEY_ALIAS
+            keyPassword BADGELAYOUT_SAMPLE_RELEASE_KEY_PASSWORD
         }
     }
     buildTypes {
