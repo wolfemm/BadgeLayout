@@ -21,6 +21,10 @@ Download via Gradle:
 compile 'au.com.dardle:badgelayout:0.0.8'
 ```
 
+Sample app
+--------
+https://play.google.com/store/apps/details?id=au.com.dardle.sample.badgelayout
+
 
 License
 --------
