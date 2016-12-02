@@ -223,6 +223,15 @@ public class BadgeLayout extends HorizontalScrollView {
     }
 
     /**
+     * Get the spacing between badge items
+     *
+     * @return Spacing between badge items
+     */
+    public int getSpacing() {
+        return mSpacing;
+    }
+
+    /**
      * Set the spacing between badge items
      *
      * @param spacing Spacing between badge items
@@ -237,6 +246,15 @@ public class BadgeLayout extends HorizontalScrollView {
                 layoutParams.leftMargin = mSpacing;
             }
         }
+    }
+
+    /**
+     * Get the spacing between badge's text and image
+     *
+     * @return The spacing between badge's text and image
+     */
+    public int getBadgeContentSpacing() {
+        return mBadgeContentSpacing;
     }
 
     /**
@@ -259,6 +277,15 @@ public class BadgeLayout extends HorizontalScrollView {
         mBadgeBackgroundResId = badgeBackgroundResId;
 
         updateBadges();
+    }
+
+    /**
+     * Get badge's text position
+     *
+     * @return Badge's text position
+     */
+    public BadgeTextPosition getBadgeTextPosition() {
+        return mBadgeTextPosition;
     }
 
     /**
@@ -560,39 +587,33 @@ public class BadgeLayout extends HorizontalScrollView {
 
             removeAllViews();
 
-            int textViewIndex = 0;
-            int imageViewIndex = 0;
             LayoutParams textViewLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             LayoutParams imageViewLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
             switch (mBadgeTextPosition) {
                 case LEFT:
-                    imageViewIndex = 1;
-                    textViewIndex = 0;
                     textViewLayoutParams.rightMargin = mBadgeContentSpacing;
+                    addView(mTextView, textViewLayoutParams);
+                    addView(mImageView, imageViewLayoutParams);
                     break;
 
                 case TOP:
-                    imageViewIndex = 1;
-                    textViewIndex = 0;
                     textViewLayoutParams.bottomMargin = mBadgeContentSpacing;
+                    addView(mTextView, textViewLayoutParams);
+                    addView(mImageView, imageViewLayoutParams);
                     break;
 
                 case RIGHT:
-                    imageViewIndex = 0;
-                    textViewIndex = 1;
                     textViewLayoutParams.leftMargin = mBadgeContentSpacing;
+                    addView(mImageView, imageViewLayoutParams);
+                    addView(mTextView, textViewLayoutParams);
                     break;
 
                 case BOTTOM:
-                    imageViewIndex = 0;
-                    textViewIndex = 1;
                     textViewLayoutParams.topMargin = mBadgeContentSpacing;
+                    addView(mImageView, imageViewLayoutParams);
+                    addView(mTextView, textViewLayoutParams);
                     break;
             }
-
-            addView(mImageView, imageViewIndex, imageViewLayoutParams);
-            addView(mTextView, textViewIndex, textViewLayoutParams);
         }
 
         private void updateContent() {
