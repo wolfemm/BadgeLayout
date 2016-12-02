@@ -11,7 +11,7 @@ Download
 --------
 Download via Gradle:
 ```groovy
-compile 'au.com.dardle:badgelayout:0.0.9'
+compile 'au.com.dardle:badgelayout:0.1.0'
 ```
 
 
