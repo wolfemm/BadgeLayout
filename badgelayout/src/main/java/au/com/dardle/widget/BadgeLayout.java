@@ -600,9 +600,7 @@ public class BadgeLayout extends HorizontalScrollView {
                 mImageView.setImageDrawable(mBadge.mIcon);
 
                 mTextView.setText(mBadge.mText);
-                if (mBadgeTextColors != null) {
-                    mTextView.setTextColor(mBadgeTextColors);
-                }
+                mTextView.setTextColor(mBadgeTextColors);
                 mTextView.setTextSize(mBadgeTextSize);
                 if (TextUtils.isEmpty(mTextView.getText())) {
                     mTextView.setVisibility(GONE);
