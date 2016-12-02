@@ -142,10 +142,12 @@ public class BadgeLayout extends HorizontalScrollView {
         if (tintTypedArray.hasValue(R.styleable.BadgeLayout_badgeTextColor)) {
             // If we have an explicit text color set, use it
             mBadgeTextColors = tintTypedArray.getColorStateList(R.styleable.BadgeLayout_badgeTextColor);
+        } else {
+            mBadgeTextColors = new TextView(context).getTextColors();
         }
 
         // Badge text size
-        mBadgeTextSize = tintTypedArray.getDimensionPixelSize(R.styleable.BadgeLayout_badgeTextSize, -1);
+        mBadgeTextSize = tintTypedArray.getDimensionPixelSize(R.styleable.BadgeLayout_badgeTextSize, 14);
 
         tintTypedArray.recycle();
     }
@@ -271,6 +273,10 @@ public class BadgeLayout extends HorizontalScrollView {
         updateBadges();
     }
 
+    public ColorStateList getBadgeTextColor() {
+        return mBadgeTextColors;
+    }
+
     /**
      * Set badge text color
      *
@@ -278,6 +284,26 @@ public class BadgeLayout extends HorizontalScrollView {
      */
     public void setBadgeTextColor(ColorStateList badgeTextColor) {
         mBadgeTextColors = badgeTextColor;
+
+        updateBadges();
+    }
+
+    /**
+     * Get badge text size
+     *
+     * @return Badge's text size
+     */
+    public int getBadgeTextSize() {
+        return mBadgeTextSize;
+    }
+
+    /**
+     * Set badge text size
+     *
+     * @param textSize Badge's text size
+     */
+    public void setBadgeTextSize(int textSize) {
+        mBadgeTextSize = textSize;
 
         updateBadges();
     }
@@ -577,9 +603,7 @@ public class BadgeLayout extends HorizontalScrollView {
                 if (mBadgeTextColors != null) {
                     mTextView.setTextColor(mBadgeTextColors);
                 }
-                if (mBadgeTextSize != -1) {
-                    mTextView.setTextSize(mBadgeTextSize);
-                }
+                mTextView.setTextSize(mBadgeTextSize);
                 if (TextUtils.isEmpty(mTextView.getText())) {
                     mTextView.setVisibility(GONE);
                 } else {
