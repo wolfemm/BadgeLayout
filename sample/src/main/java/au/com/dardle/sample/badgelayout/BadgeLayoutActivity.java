@@ -1,5 +1,7 @@
 package au.com.dardle.sample.badgelayout;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,9 +9,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatSeekBar;
+import android.support.v7.widget.AppCompatSpinner;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import au.com.dardle.widget.BadgeLayout;
@@ -74,6 +84,8 @@ public class BadgeLayoutActivity extends AppCompatActivity {
     }
 
     public static class BadgeLayoutFromCodeFragment extends BadgeLayoutFragment {
+        private BadgeLayout mBadgeLayout;
+        private BadgeLayout.Badge mBadge;
 
         @Nullable
         @Override
@@ -86,8 +98,6 @@ public class BadgeLayoutActivity extends AppCompatActivity {
             super.onActivityCreated(savedInstanceState);
 
             setupDefaultBadgeLayout();
-            setupAppBadgeLayout();
-            setupSoBadgeLayout();
         }
 
         @Override
@@ -99,87 +109,153 @@ public class BadgeLayoutActivity extends AppCompatActivity {
         }
 
         private void setupDefaultBadgeLayout() {
-            BadgeLayout badgeLayout = (BadgeLayout) getActivity().findViewById(R.id.badge_layout);
+            mBadgeLayout = (BadgeLayout) getActivity().findViewById(R.id.badge_layout);
 
-            // Add badges
-            badgeLayout.addBadge(badgeLayout
+            mBadge = mBadgeLayout
                     .newBadge()
                     .setText("Badge")
+                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_launcher, getContext().getTheme()));
+            mBadgeLayout.addBadge(mBadge);
+
+            mBadgeLayout.addBadge(mBadgeLayout
+                    .newBadge()
+                    .setText("Badge 2")
                     .setIcon(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_launcher, getContext().getTheme())));
 
-            badgeLayout.addBadge(badgeLayout
-                    .newBadge()
-                    .setText("Badge"));
 
-            badgeLayout.addBadge(badgeLayout
-                    .newBadge()
-                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_launcher, getContext().getTheme())));
+            AppCompatSeekBar spacingAppCompatSeekBar = (AppCompatSeekBar) getActivity().findViewById(R.id.spacing_seek_bar);
+            spacingAppCompatSeekBar.setProgress(mBadgeLayout.getSpacing());
+            spacingAppCompatSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                    update();
+                }
 
-            // Set item spacing
-            badgeLayout.setSpacing((int) (getResources().getDisplayMetrics().density * 24));
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
 
-            badgeLayout.addOnBadgeClickedListener(this);
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
+
+
+            EditText editText = (EditText) getActivity().findViewById(R.id.edit_text);
+            editText.setText(mBadge.getText());
+            editText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    update();
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+
+            AppCompatSeekBar textSizeSeekBar = (AppCompatSeekBar) getActivity().findViewById(R.id.text_size_seek_bar);
+            textSizeSeekBar.setProgress(mBadgeLayout.getBadgeTextSize());
+            textSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                    update();
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
+
+            AppCompatSpinner textColorSpinner = (AppCompatSpinner) getActivity().findViewById(R.id.text_color_spinner);
+            ArrayAdapter<String> textColorArrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, new String[]{"Black", "Red", "Blue"});
+            textColorArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            textColorSpinner.setAdapter(textColorArrayAdapter);
+            textColorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    update();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
+            AppCompatSpinner textPositionSpinner = (AppCompatSpinner) getActivity().findViewById(R.id.text_position_spinner);
+            ArrayAdapter<BadgeLayout.BadgeTextPosition> textPositionArrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, BadgeLayout.BadgeTextPosition.values());
+            textPositionArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            textPositionSpinner.setAdapter(textPositionArrayAdapter);
+            textPositionSpinner.setSelection(mBadgeLayout.getBadgeTextPosition().ordinal());
+            textPositionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    update();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
+            AppCompatSeekBar contentSpacingSeekBar = (AppCompatSeekBar) getActivity().findViewById(R.id.content_spacing_seek_bar);
+            contentSpacingSeekBar.setProgress(mBadgeLayout.getBadgeContentSpacing());
+            contentSpacingSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                    update();
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
         }
 
-        private void setupAppBadgeLayout() {
-            BadgeLayout appBadgeLayout = (BadgeLayout) getActivity().findViewById(R.id.app_badge_layout);
-            appBadgeLayout.addOnBadgeClickedListener(this);
+        private void update() {
+            AppCompatSeekBar spacingAppCompatSeekBar = (AppCompatSeekBar) getActivity().findViewById(R.id.spacing_seek_bar);
+            EditText editText = (EditText) getActivity().findViewById(R.id.edit_text);
+            AppCompatSeekBar appCompatSeekBar = (AppCompatSeekBar) getActivity().findViewById(R.id.text_size_seek_bar);
+            AppCompatSpinner textColorSpinner = (AppCompatSpinner) getActivity().findViewById(R.id.text_color_spinner);
+            AppCompatSpinner appCompatSpinner = (AppCompatSpinner) getActivity().findViewById(R.id.text_position_spinner);
+            AppCompatSeekBar contentSpacingSeekBar = (AppCompatSeekBar) getActivity().findViewById(R.id.content_spacing_seek_bar);
 
-            appBadgeLayout.setBadgeBackground(R.drawable.background_app_badge);
-            appBadgeLayout.setSpacing((int) (getResources().getDisplayMetrics().density * 8));
-            appBadgeLayout.setBadgeTextColor(ResourcesCompat.getColorStateList(getResources(), android.R.color.white, getContext().getTheme()));
+            mBadgeLayout.setSpacing(spacingAppCompatSeekBar.getProgress());
 
-            // Add badges
-            appBadgeLayout.addBadge(appBadgeLayout
-                    .newBadge()
-                    .setText("TOP CHARTS"));
+            mBadge.setText(editText.getText());
+            mBadgeLayout.setBadgeTextSize(appCompatSeekBar.getProgress());
+            mBadgeLayout.setBadgeTextPosition((BadgeLayout.BadgeTextPosition) appCompatSpinner.getSelectedItem());
+            mBadgeLayout.setBadgeContentSpacing(contentSpacingSeekBar.getProgress());
 
-            appBadgeLayout.addBadge(appBadgeLayout
-                    .newBadge()
-                    .setText("GAMES"));
-
-            appBadgeLayout.addBadge(appBadgeLayout
-                    .newBadge()
-                    .setText("CATEGORIES"));
-
-            appBadgeLayout.addBadge(appBadgeLayout
-                    .newBadge()
-                    .setText("EARLY ACCESS"));
-
-            appBadgeLayout.addBadge(appBadgeLayout
-                    .newBadge()
-                    .setText("FAMILY"));
-
-            appBadgeLayout.addBadge(appBadgeLayout
-                    .newBadge()
-                    .setText("EDITORS' CHOICE"));
-        }
-
-        private void setupSoBadgeLayout() {
-            BadgeLayout soBadgeLayout = (BadgeLayout) getActivity().findViewById(R.id.so_badge_layout);
-            soBadgeLayout.addOnBadgeClickedListener(this);
-
-            soBadgeLayout.setBadgeBackground(R.drawable.background_so_badge);
-            soBadgeLayout.setBadgeContentSpacing((int) (getResources().getDisplayMetrics().density * 10));
-            soBadgeLayout.setSpacing((int) (getResources().getDisplayMetrics().density * 8));
-            soBadgeLayout.setBadgeTextColor(ResourcesCompat.getColorStateList(getResources(), android.R.color.white, getContext().getTheme()));
-            soBadgeLayout.setBadgeTextPosition(BadgeLayout.BadgeTextPosition.RIGHT);
-
-            // Add badges
-            soBadgeLayout.addBadge(soBadgeLayout
-                    .newBadge()
-                    .setText("Teacher")
-                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_so_badge_bronze, getContext().getTheme())));
-
-            soBadgeLayout.addBadge(soBadgeLayout
-                    .newBadge()
-                    .setText("Guru")
-                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_so_badge_silver, getContext().getTheme())));
-
-            soBadgeLayout.addBadge(soBadgeLayout
-                    .newBadge()
-                    .setText("Great Answer")
-                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_so_badge_gold, getContext().getTheme())));
+            int[][] states = new int[][]{
+                    new int[]{}
+            };
+            int[] colors = new int[]{
+                    Color.parseColor(textColorSpinner.getSelectedItem().toString().toLowerCase())
+            };
+            mBadgeLayout.setBadgeTextColor(new ColorStateList(states, colors));
         }
     }
 

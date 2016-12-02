@@ -15,20 +15,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@mipmap/ic_launcher"
-            android:text="Badge" />
+            android:text="Badge 1" />
 
         <au.com.dardle.widget.BadgeItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Badge" />
+            android:icon="@mipmap/ic_launcher"
+            android:text="Badge 2" />
 
         <au.com.dardle.widget.BadgeItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@mipmap/ic_launcher" />
+            android:icon="@mipmap/ic_launcher"
+            android:text="Badge 3" />
 
     </au.com.dardle.widget.BadgeLayout>
-
 
     <au.com.dardle.widget.BadgeLayout
         android:id="@+id/app_badge_layout"
@@ -80,7 +81,7 @@
         app:badgeContentSpacing="10dp"
         app:badgeTextColor="@android:color/white"
         app:badgeTextPosition="right"
-        app:spacing="8dp">
+        app:spacing="12dp">
 
         <au.com.dardle.widget.BadgeItem
             android:layout_width="wrap_content"

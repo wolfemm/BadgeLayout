@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BadgeLayout</string>
+    <string name="app_name">BadgeLayout Demo</string>
     
     <string name="key_from_xml">from_xml</string>
     <string name="key_from_code">from_code</string>
