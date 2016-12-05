@@ -7,7 +7,7 @@ android {
         applicationId "au.com.dardle.sample.badgelayout"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 2016120200
+        versionCode 2016120500
         versionName "0.0.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -24,6 +24,13 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(
+                    output.outputFile.parent,
+                    "badgelayout-" + output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
         }
     }
 }
