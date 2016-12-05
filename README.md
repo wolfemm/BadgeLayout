@@ -4,7 +4,7 @@ A powerful layout to display badges, tags, or labels in a pretty way for Android
 
 ![](https://cloud.githubusercontent.com/assets/22950288/20654442/6f769cae-b56d-11e6-9c46-a2d1e410e1ce.png)
 
-[![Build Status](https://travis-ci.org/luxiliu/BadgeLayout.svg?branch=develop)](https://travis-ci.org/luxiliu/BadgeLayout)      [![Download](https://api.bintray.com/packages/luxiliu/maven/BadgeLayout/images/download.svg)](https://bintray.com/luxiliu/maven/BadgeLayout/_latestVersion)     [![Maven Central](https://maven-badges.herokuapp.com/maven-central/au.com.dardle/badgelayout/badge.svg)](https://maven-badges.herokuapp.com/maven-central/au.com.darlde/badgelayout)        [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-BadgeLayout-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4713)
+[![Build Status](https://travis-ci.org/luxiliu/BadgeLayout.svg?branch=develop)](https://travis-ci.org/luxiliu/BadgeLayout)      [![Download](https://api.bintray.com/packages/luxiliu/maven/BadgeLayout/images/download.svg)](https://bintray.com/luxiliu/maven/BadgeLayout/_latestVersion)     [![Maven Central](https://maven-badges.herokuapp.com/maven-central/au.com.dardle/badgelayout/badge.svg)](https://maven-badges.herokuapp.com/maven-central/au.com.dardle/badgelayout)        [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-BadgeLayout-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4713)
 
 
 Download
