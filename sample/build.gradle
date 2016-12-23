@@ -7,8 +7,8 @@ android {
         applicationId "au.com.dardle.sample.badgelayout"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 2016120500
-        versionName "0.1.0"
+        versionCode 2016122300
+        versionName "0.1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {

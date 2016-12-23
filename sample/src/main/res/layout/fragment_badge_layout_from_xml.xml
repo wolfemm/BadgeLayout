@@ -79,6 +79,7 @@
         android:layout_marginTop="16dp"
         app:badgeBackground="@drawable/background_so_badge"
         app:badgeContentSpacing="10dp"
+        app:badgeMode="fixed"
         app:badgeTextColor="@android:color/white"
         app:badgeTextPosition="right"
         app:spacing="12dp">

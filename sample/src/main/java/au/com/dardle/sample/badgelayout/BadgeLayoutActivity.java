@@ -111,7 +111,7 @@ public class BadgeLayoutActivity extends AppCompatActivity {
 
             mBadge = mBadgeLayout
                     .newBadge()
-                    .setText("Badge")
+                    .setText("Badge 1")
                     .setIcon(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_launcher, getContext().getTheme()));
             mBadgeLayout.addBadge(mBadge);
 
@@ -120,6 +120,25 @@ public class BadgeLayoutActivity extends AppCompatActivity {
                     .setText("Badge 2")
                     .setIcon(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_launcher, getContext().getTheme())));
 
+            mBadgeLayout.addBadge(mBadgeLayout
+                    .newBadge()
+                    .setText("Badge 3")
+                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_launcher, getContext().getTheme())));
+
+            mBadgeLayout.addBadge(mBadgeLayout
+                    .newBadge()
+                    .setText("Badge 4")
+                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_launcher, getContext().getTheme())));
+
+            mBadgeLayout.addBadge(mBadgeLayout
+                    .newBadge()
+                    .setText("Badge 5")
+                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_launcher, getContext().getTheme())));
+
+            mBadgeLayout.addBadge(mBadgeLayout
+                    .newBadge()
+                    .setText("Badge 6")
+                    .setIcon(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_launcher, getContext().getTheme())));
 
             AppCompatSeekBar spacingAppCompatSeekBar = (AppCompatSeekBar) getActivity().findViewById(R.id.spacing_seek_bar);
             spacingAppCompatSeekBar.setProgress(mBadgeLayout.getSpacing());
@@ -230,6 +249,23 @@ public class BadgeLayoutActivity extends AppCompatActivity {
 
                 }
             });
+
+            AppCompatSpinner modeSpinner = (AppCompatSpinner) getActivity().findViewById(R.id.mode_spinner);
+            ArrayAdapter<BadgeLayout.BadgeMode> modeArrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, BadgeLayout.BadgeMode.values());
+            modeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            modeSpinner.setAdapter(modeArrayAdapter);
+            modeSpinner.setSelection(mBadgeLayout.getBadgeMode().ordinal());
+            modeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    update();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
         }
 
         private void update() {
@@ -239,6 +275,7 @@ public class BadgeLayoutActivity extends AppCompatActivity {
             AppCompatSpinner textColorSpinner = (AppCompatSpinner) getActivity().findViewById(R.id.text_color_spinner);
             AppCompatSpinner appCompatSpinner = (AppCompatSpinner) getActivity().findViewById(R.id.text_position_spinner);
             AppCompatSeekBar contentSpacingSeekBar = (AppCompatSeekBar) getActivity().findViewById(R.id.content_spacing_seek_bar);
+            AppCompatSpinner modeSpinner = (AppCompatSpinner) getActivity().findViewById(R.id.mode_spinner);
 
             mBadgeLayout.setSpacing(spacingAppCompatSeekBar.getProgress());
 
@@ -246,6 +283,7 @@ public class BadgeLayoutActivity extends AppCompatActivity {
             mBadgeLayout.setBadgeTextSize(appCompatSeekBar.getProgress());
             mBadgeLayout.setBadgeTextPosition((BadgeLayout.BadgeTextPosition) appCompatSpinner.getSelectedItem());
             mBadgeLayout.setBadgeContentSpacing(contentSpacingSeekBar.getProgress());
+            mBadgeLayout.setBadgeMode((BadgeLayout.BadgeMode) modeSpinner.getSelectedItem());
 
             int[][] states = new int[][]{
                     new int[]{}
