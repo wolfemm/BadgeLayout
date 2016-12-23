@@ -26,6 +26,7 @@ import android.support.v7.widget.TintTypedArray;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
@@ -92,6 +93,7 @@ public class BadgeLayout extends HorizontalScrollView {
     private BadgeTextPosition mBadgeTextPosition;
     private ColorStateList mBadgeTextColors;
     private int mBadgeTextSize; // pixel
+    private BadgeMode mBadgeMode;
 
     private final ArrayList<OnBadgeClickedListener> mOnBadgeClickedListeners = new ArrayList<>();
     private final OnClickListener mClickListener = new OnClickListener() {
@@ -137,6 +139,7 @@ public class BadgeLayout extends HorizontalScrollView {
         mBadgeContentSpacing = tintTypedArray.getDimensionPixelSize(R.styleable.BadgeLayout_badgeContentSpacing, 0);
         mBadgeBackgroundResId = tintTypedArray.getResourceId(R.styleable.BadgeLayout_badgeBackground, 0);
         mBadgeTextPosition = BadgeTextPosition.values()[tintTypedArray.getInt(R.styleable.BadgeLayout_badgeTextPosition, BadgeTextPosition.BOTTOM.ordinal())];
+        mBadgeMode = BadgeMode.values()[tintTypedArray.getInt(R.styleable.BadgeLayout_badgeMode, BadgeMode.SCROLLABLE.ordinal())];
 
         // Badge text color
         if (tintTypedArray.hasValue(R.styleable.BadgeLayout_badgeTextColor)) {
@@ -170,6 +173,28 @@ public class BadgeLayout extends HorizontalScrollView {
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
         addViewInternal(child);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        boolean result;
+
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                result = mBadgeMode == BadgeMode.SCROLLABLE && super.onTouchEvent(ev);
+                break;
+
+            default:
+                result = super.onTouchEvent(ev);
+                break;
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return mBadgeMode == BadgeMode.SCROLLABLE && super.onInterceptTouchEvent(ev);
     }
 
     /**
@@ -298,6 +323,26 @@ public class BadgeLayout extends HorizontalScrollView {
         mBadgeTextPosition = badgeTextPosition;
 
         updateBadges();
+    }
+
+    /**
+     * Get badge mode
+     *
+     * @return Badge mode
+     * @see BadgeMode
+     */
+    public BadgeMode getBadgeMode() {
+        return mBadgeMode;
+    }
+
+    /**
+     * Set badge mode
+     *
+     * @param badgeMode Badge mode
+     * @see BadgeMode
+     */
+    public void setBadgeMode(BadgeMode badgeMode) {
+        mBadgeMode = badgeMode;
     }
 
     public ColorStateList getBadgeTextColor() {
@@ -525,6 +570,10 @@ public class BadgeLayout extends HorizontalScrollView {
 
     public enum BadgeTextPosition {
         LEFT, TOP, RIGHT, BOTTOM
+    }
+
+    public enum BadgeMode {
+        SCROLLABLE, FIXED
     }
 
     /**
