@@ -483,6 +483,7 @@ public class BadgeLayout extends HorizontalScrollView {
      * A badge in this layout. Instances can be created via {@link #newBadge()}.
      */
     public static final class Badge {
+        private Object mTag;
         private Drawable mIcon;
         private CharSequence mText;
         private boolean mSelected = false;
@@ -495,6 +496,17 @@ public class BadgeLayout extends HorizontalScrollView {
 
         private Badge() {
             // Private constructor
+        }
+
+        /**
+         * Give this Badge an arbitrary object to hold for later use.
+         *
+         * @param tag Object to store
+         * @return The current instance for call chaining
+         */
+        public Badge setTag(@Nullable Object tag) {
+            mTag = tag;
+            return this;
         }
 
         /**
@@ -549,6 +561,16 @@ public class BadgeLayout extends HorizontalScrollView {
             mEnabled = enabled;
             updateView();
             return this;
+        }
+
+        /**
+         * Return the tag object of this badge
+         *
+         * @return The badge's tag object;
+         */
+        @Nullable
+        public Object getTag() {
+            return mTag;
         }
 
         /**
